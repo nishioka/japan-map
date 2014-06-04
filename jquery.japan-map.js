@@ -107,7 +107,7 @@
             Touch : typeof document.ontouchstart !== "undefined",
             Pointer : window.navigator.pointerEnabled,
             MSPointer : window.navigator.msPointerEnabled
-        }
+        };
     })();
 
     var isWinDesktop = (function(){
@@ -188,6 +188,7 @@
     Map.prototype.addEvent = function(){
         var self = this;
         var _target = $(this.element);
+        var _offset = _target[0].getBoundingClientRect();
 
         if (_ua.Pointer && ! isWinDesktop || _ua.MSPointer && ! isWinDesktop || _ua.Touch){
 
@@ -199,8 +200,8 @@
                 var point  = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 
                 self.pointer = {
-                    x: point.pageX - _target[0].offsetLeft,
-                    y: point.pageY - _target[0].offsetTop
+                    x: point.pageX - _offset.left,
+                    y: point.pageY - _offset.top
                 };
                 self.render();
                 if (self.isHovering()) {
@@ -213,8 +214,8 @@
 
                     if (self.isHovering()) {
                         self.pointer = {
-                            x: point.pageX - _target[0].offsetLeft,
-                            y: point.pageY - _target[0].offsetTop
+                            x: point.pageX - _offset.left,
+                            y: point.pageY - _offset.top
                         };
 
                         self.render();
@@ -245,8 +246,8 @@
                 var point  = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 
                 self.pointer = {
-                    x: point.pageX - _target[0].offsetLeft,
-                    y: point.pageY - _target[0].offsetTop
+                    x: point.pageX - _offset.left,
+                    y: point.pageY - _offset.top
                 };
                 self.render();
 
@@ -272,12 +273,12 @@
     };
 
     Map.prototype.findPrefectureByCode = function(code){
-        var results = this.options.prefectures.filter(function(p){return p.code == code});
+        var results = this.options.prefectures.filter(function(p){return p.code == code;});
         return (results.length>0)? results[0] : null;
     };
 
     Map.prototype.findAreaBelongingToByCode = function(code){
-        var results = this.options.areas.filter(function(a){return a.prefectures.indexOf(code) > -1 });
+        var results = this.options.areas.filter(function(a){return a.prefectures.indexOf(code) > -1;});
         return (results.length>0)? results[0] : null;
     };
 
@@ -385,7 +386,7 @@
             if (area){
                 this.setProperties(prefecture,area);
             } else {
-                throw "No area has such prefecture code '" + code + "'.";
+                throw "No area has such prefecture code '" + prefecture.code + "'.";
             }
 
             context.fill();

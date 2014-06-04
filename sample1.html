@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Japan Map - Example 3</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.japan-map.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#map-container").japanMap({
+                onSelect : function(data){
+                    alert(data.name);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="map-container"></div>
+    <p id="text" style="padding: 10px; width: 800px; color: #ffffff; text-align: center"></p>
+</body>
+</html>
